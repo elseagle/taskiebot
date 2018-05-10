@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: public
+Version: 1.0.2
+Summary: @public decorator, public(*objects) function - add objects names to __all__
+Home-page: UNKNOWN
+License: UNKNOWN
+Project-URL: Homepage, https://github.com/looking-for-a-job/public.py
+Project-URL: Bug Tracker, https://github.com/looking-for-a-job/public.py/issues
+Keywords: public __all__
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: setuptools
+
+UNKNOWN
+
+
