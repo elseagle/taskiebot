@@ -14,7 +14,7 @@ def handle_verification():
         return 'Wrong Verification Token'
 
 
-@app.route('/', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def handle_messages():
     print('Handling Messages')
     payload = request.get_data()
