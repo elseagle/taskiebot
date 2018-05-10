@@ -6,9 +6,9 @@ PAT = 'EAAejjCE6jRIBAInnEJorcRRZCbPQavMB9b1xb2Kpqvy5MJY5A8T4N7SdVOWNgQsvihSvdS0e
 @app.route('/webhook', methods=['GET']) # pylint: disable=W0611
 def handle_verification():
     print('Handling the verification')
-    if request.args.get('hub_verification_token') == 'token_key':
+    if request.args.get('hub.verify_token') == 'token_key':
         print('Verification Successful')
-        return request.args.get('hub_verification_token')
+        return request.args.get('hub.verify_token')
     else:
         print('Verification Failed')
         return 'Wrong Verification Token'
