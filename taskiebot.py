@@ -8,7 +8,7 @@ def handle_verification():
     print('Handling the verification')
     if request.args.get('hub.verify_token') == 'token_key':
         print('Verification Successful')
-        return request.args.get('hub.verify_token')
+        return request.args.get('hub.challenge')
     else:
         print('Verification Failed')
         return 'Wrong Verification Token'
