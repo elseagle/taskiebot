@@ -1,9 +1,9 @@
-from Flask import flask 
+from flask import Flask # pylint: disable=W0611
 import json, requests, request
 
 PAT = 'EAAejjCE6jRIBAInnEJorcRRZCbPQavMB9b1xb2Kpqvy5MJY5A8T4N7SdVOWNgQsvihSvdS0ecgQjTZAW8zWUnWcGbATez04Xx4bq1iKRiBordhOWsYa59lwV0QZBaqN6nm8d1nLlqHnbJUUh7yI2kR1xgCHWRNPuAhlgec4IQZDZD'
 
-@app.route('/', method=['GET'])
+@app.route('/', method=['GET']) # pylint: disable=W0611
 def handle_verification():
     print('Handling the verification')
     if request.args.get('hub_verifictaion_token', '') == 'token_key':
