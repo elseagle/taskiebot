@@ -2,16 +2,21 @@ from flask import Flask, request # pylint: disable=W0611
 import json, requests
 
 app = Flask(__name__)
-PAT = 'EAAejjCE6jRIBAInnEJorcRRZCbPQavMB9b1xb2Kpqvy5MJY5A8T4N7SdVOWNgQsvihSvdS0ecgQjTZAW8zWUnWcGbATez04Xx4bq1iKRiBordhOWsYa59lwV0QZBaqN6nm8d1nLlqHnbJUUh7yI2kR1xgCHWRNPuAhlgec4IQZDZD'
 
-@app.route('/webhook', methods=['GET']) # pylint: disable=W0611
+PAT = 'EAAejjCE6jRIBAInnEJorcRRZCbPQavMB9b1xb2Kpqvy5MJY5A8T4N7SdVOWNgQsvihSvdS0ecgQjTZAW8zWUnWcGbATez04Xx4bq1iKRiBordhOWsYa59lwV0QZBaqN6nm8d1nLlqHnbJUUh7yI2kR1xgCHWRNPuAhlgec4IQZDZD'
+VERIFICATION_TOKEN = "token_key"
+
+@app.route('/webhook', methods=['GET'])
 def handle_verification():
     print('Handling the verification')
-    if request.args.get('hub.verify_token') == 'token_key':
+    if ((request.args.get('hub.verify_token', '') == VERIFICATION_TOKEN)):
         print('Verification Successful')
-        return request.args.get('hub.challenge')
+        
+        return request.args.get('hub.challenge', '')
     else:
         print('Verification Failed')
+        print(request.args.get('hub.challenge', ''))
+        print(equest.get_data())
         return 'Wrong Verification Token'
 
 
@@ -24,6 +29,7 @@ def handle_messages():
         print ("Incoming from %s: %s" % (sender, message))
         send_message(PAT, sender, message)
     return 'Ok'
+
 
 
 def messaging_events(payload):
