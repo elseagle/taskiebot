@@ -1,10 +1,10 @@
-from flask import Flask, request # pylint: disable=W0611
-import json, requests
+from flask import Flask, request
+import json, requests, apiai
 
 app = Flask(__name__)
 
-PAT = 'EAAejjCE6jRIBAInnEJorcRRZCbPQavMB9b1xb2Kpqvy5MJY5A8T4N7SdVOWNgQsvihSvdS0ecgQjTZAW8zWUnWcGbATez04Xx4bq1iKRiBordhOWsYa59lwV0QZBaqN6nm8d1nLlqHnbJUUh7yI2kR1xgCHWRNPuAhlgec4IQZDZD'
-VERIFICATION_TOKEN = "token_key"
+PAT = ''
+VERIFICATION_TOKEN = ""
 
 @app.route('/webhook', methods=['GET'])
 def handle_verification():
