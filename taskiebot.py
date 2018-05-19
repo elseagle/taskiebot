@@ -39,6 +39,7 @@ def handle_messages():
 def messaging_events(payload):
     data = json.loads(payload)
     print('Obtaining sender, msg pair from payload.')
+    print([key for key in data])
     for event in data:
         if "message" in event and "text" in event["message"]:
             print('If condition true')
