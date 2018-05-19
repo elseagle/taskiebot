@@ -38,8 +38,6 @@ def messaging_events(payload):
     for event in data:
         if "message" in event and "text" in event["message"]:
             yield event["sender"]["id"], event["message"]["text"].encode('unicode_escape')
-        else:
-            yield event["sender"]["id"], "I can't echo this"
 
 
 def parse_user_message(sender, user_text):
