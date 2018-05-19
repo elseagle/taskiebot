@@ -95,7 +95,7 @@ def parse_user_message(sender, user_text):
                     date = datetime_dict[sender].pop('date')
                     time = datetime_dict[sender].pop('time')
                     print('About to start thread')
-                    myThread(sender, date_and_time).run()
+                    myThread(sender, 20).run()
         except KeyError:
             pass
         return api_response['fulfillment']['speech']
@@ -108,7 +108,7 @@ class myThread(threading.Thread):
       self.date_and_time = date_and_time
    def run(self):
       print("Starting thread for " + self.sender)
-      time.sleep(10)
+      time.sleep(self.date_and_time)
       task_alert_message = 'Your task is starting in 10 minutes time. Get ready yo!'
       send_message(PAT, sender, task_alert_message)
       print("Exiting thread for " + self.sender)
