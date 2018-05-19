@@ -64,7 +64,7 @@ def parse_user_message(sender, user_text):
     # r.getresponse()
 
     response = json.loads(r.getresponse().read().decode('utf-8'))
-    print('Api reaponse obtained.')
+    print('Api response obtained.')
     responseStatus = response['status']['code']
 
     if (responseStatus == 200):
@@ -119,7 +119,7 @@ def send_message(token, recipient, text):
     params={"access_token": token},
     data=json.dumps({
                     "recipient": {"id": recipient},
-                    "message": {"text": text.decode('unicode_escape')}
+                    "message": {"text": text}
                     }),
     headers={'Content-type': 'application/json'})
     if req.status_code != requests.codes['ok']:
