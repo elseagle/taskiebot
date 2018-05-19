@@ -110,7 +110,7 @@ class myThread(threading.Thread):
       print("Starting thread for " + self.sender)
       time.sleep(self.date_and_time)
       task_alert_message = 'Your task is starting in 10 minutes time. Get ready yo!'
-      send_message(PAT, sender, task_alert_message)
+      send_message(PAT, self.sender, task_alert_message)
       print("Exiting thread for " + self.sender)
 
 
