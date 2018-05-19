@@ -70,6 +70,7 @@ def parse_user_message(sender, user_text):
     if (responseStatus == 200):
         print("API AI response", response['result']['fulfillment']['speech'])
         api_response = response['result']
+        print(api_response)
         # quotes = None
         # attractions = None
         # print(response['result'])
