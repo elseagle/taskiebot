@@ -29,14 +29,19 @@ def handle_messages():
     print(payload)
     for sender, message in messaging_events(payload):
         print ("Incoming from %s: %s" % (sender, message))
+        message = parse_user_message(sender, message)
+        print('Message ready to be returned.')
         send_message(PAT, sender, message)
+        print('Message sent.')
     return 'Ok'
 
 
 def messaging_events(payload):
     data = json.loads(payload)
+    print('Obtaining sender, msg pair from payload.')
     for event in data:
         if "message" in event and "text" in event["message"]:
+            print('If condition true')
             yield event["sender"]["id"], event["message"]["text"].encode('unicode_escape')
 
 
@@ -56,6 +61,7 @@ def parse_user_message(sender, user_text):
     # r.getresponse()
 
     response = json.loads(r.getresponse().read().decode('utf-8'))
+    print('Api reaponse obtained.')
     responseStatus = response['status']['code']
 
     if (responseStatus == 200):
@@ -67,20 +73,24 @@ def parse_user_message(sender, user_text):
         
         try:
             if api_response['metadata']['intentName'] == 'what_to_do':
+                print('Intent is what_to_do.')
                 if sender not in datetime_dict: datetime_dict[sender] = {}
                 if 'date' not in datetime_dict[sender]:
                     try:
                         datetime_dict[sender]['date'] = api_response['parameters']['date']
+                        print('Date entity obtained.')
                     except KeyError:
                         pass
                 if 'time' not in datetime_dict[sender]:
                     try:
                         datetime_dict[sender]['time'] = api_response['parameters']['time']
+                        print('Time entity obtained.')
                     except KeyError:
                         pass
                 if 'date' in datetime_dict[sender] and 'time' in datetime_dict[sender]:
                     date = datetime_dict[sender].pop('date')
                     time = datetime_dict[sender].pop('time')
+                    print('About to start thread')
                     myThread(sender, date, time).run()
         except KeyError:
             pass
