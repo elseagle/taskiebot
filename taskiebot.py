@@ -94,7 +94,7 @@ def parse_user_message(sender, user_text):
                     date = datetime_dict[sender].pop('date')
                     time = datetime_dict[sender].pop('time')
                     print('About to start thread')
-                    myThread(sender, date, time).run()
+                    myThread(sender, date_and_time).run()
         except KeyError:
             pass
         return api_response['fulfillment']['speech']
