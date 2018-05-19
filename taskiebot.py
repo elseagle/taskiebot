@@ -40,7 +40,8 @@ def messaging_events(payload):
     data = json.loads(payload)
     print('Obtaining sender, msg pair from payload.')
     print([key for key in data])
-    for event in data:
+    for event in data['entry']['messaging'][0]:
+        print([key for key in event])
         if "message" in event and "text" in event["message"]:
             print('If condition true')
             yield event["sender"]["id"], event["message"]["text"].encode('unicode_escape')
