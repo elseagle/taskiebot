@@ -4,8 +4,9 @@ import json, requests, apiai, threading, time
 app = Flask(__name__)
 datetime_dict = {}
 
-PAT = ''
-VERIFICATION_TOKEN = ""
+PAT = 'EAAdwVkosapwBAAyqrF9OO7RZCPDP9IcrRKq15OCL0y05ZBbtBZCrTMnB41S7ZCnGYKMSjPNemOAKrV2DZB1GfBJeXgE4d3jqNGtQxppkq21Vy2ZBfGEL9j5ltmZAU3BKhCJChOp47K458tFZCfDFUOye7QZBm47d0wwNdzxZANHFmJfQZDZD'
+VERIFICATION_TOKEN = "token_key"
+CLIENT_ACCESS_TOKEN = "c9299dd0c1ef4173b3af4a02a6473311"
 
 @app.route('/webhook', methods=['GET'])
 def handle_verification():
@@ -17,7 +18,7 @@ def handle_verification():
     else:
         print('Verification Failed')
         print(request.args.get('hub.challenge', ''))
-        print(equest.get_data())
+        print(request.get_data())
         return 'Wrong Verification Token'
 
 
@@ -94,11 +95,11 @@ class myThread(threading.Thread):
       self.sender = sender
       self.date_and_time = date_and_time
    def run(self):
-      print "Starting thread for " + self.sender
+      print("Starting thread for " + self.sender)
       time.sleep(10)
       task_alert_message = 'Your task is starting in 10 minutes time. Get ready yo!'
       send_message(PAT, sender, task_alert_message)
-      print "Exiting thread for " + self.sender
+      print("Exiting thread for " + self.sender)
 
 
 def send_message(token, recipient, text):
