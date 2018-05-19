@@ -79,23 +79,24 @@ def parse_user_message(sender, user_text):
             if api_response['metadata']['intentName'] == 'what_to_do':
                 print('Intent is what_to_do.')
                 if sender not in datetime_dict: datetime_dict[sender] = {}
-                if 'date' not in datetime_dict[sender]:
+                if 'date' not in datetime_dict[sender] and api_response['parameters']['date'] != '':
                     try:
                         datetime_dict[sender]['date'] = api_response['parameters']['date']
                         print('Date entity obtained.')
                     except KeyError:
                         pass
-                if 'time' not in datetime_dict[sender]:
+                if 'time' not in datetime_dict[sender] and api_response['parameters']['time'] != '':
                     try:
                         datetime_dict[sender]['time'] = api_response['parameters']['time']
                         print('Time entity obtained.')
                     except KeyError:
                         pass
-                if 'date' in datetime_dict[sender] and 'time' in datetime_dict[sender]:
+                if datetime_dict[sender]['date'] != '' and datetime_dict[sender]['time'] != '':
                     date = datetime_dict[sender].pop('date')
                     time = datetime_dict[sender].pop('time')
+                    datetime_dict.pop(sender)
                     print('About to start thread')
-                    myThread(sender, 20).run()
+                    myThread(sender, 10).start()
         except KeyError:
             pass
         return api_response['fulfillment']['speech']
