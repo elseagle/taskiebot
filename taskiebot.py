@@ -13,7 +13,6 @@ def handle_verification():
     print('Handling the verification')
     if ((request.args.get('hub.verify_token', '') == VERIFICATION_TOKEN)):
         print('Verification Successful')
-        
         return request.args.get('hub.challenge', '')
     else:
         print('Verification Failed')
@@ -96,23 +95,34 @@ def parse_user_message(sender, user_text):
                     time = datetime_dict[sender].pop('time')
                     datetime_dict.pop(sender)
                     print('About to start thread')
-                    myThread(sender, 10).start()
+                    time_in_seconds, info = parse_datetime_from(date, time)
+                    myThread(sender, time_in_seconds, info).start()
         except KeyError:
             pass
         return api_response['fulfillment']['speech']
 
 
 class myThread(threading.Thread):
-   def __init__(self, sender, date_and_time):
-      threading.Thread.__init__(self)
-      self.sender = sender
-      self.date_and_time = date_and_time
-   def run(self):
-      print("Starting thread for " + self.sender)
-      time.sleep(self.date_and_time)
-      task_alert_message = 'Your task is starting in 10 minutes time. Get ready yo!'
-      send_message(PAT, self.sender, task_alert_message)
-      print("Exiting thread for " + self.sender)
+    def __init__(self, sender, date_and_time, info):
+        threading.Thread.__init__(self)
+        self.sender = sender
+        self.date_and_time = date_and_time
+        self.info = info
+    def run(self):
+        print("Starting thread for " + self.sender)
+        time.sleep(self.date_and_time)
+        task_alert_message = 'Your task is starting in {} minute(s). Get ready yo!'.format(self.info)
+        send_message(PAT, self.sender, task_alert_message)
+        print("Exiting thread for " + self.sender)
+
+
+def parse_datetime_from(date, time):
+	t1 = date[:10] + 'T' + time[11:19]
+	t1 = time.strptime(t1, '%Y-%m-%dT%H:%M:%S')
+	time_now = time.time()
+	time_set = time.mktime(t1)
+	if time_set - time_now <= 600: return (time_set - time_now - 60, 'one')
+	return (time_set - time_now - 600, 'ten')
 
 
 def send_message(token, recipient, text):
