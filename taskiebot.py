@@ -26,12 +26,12 @@ def handle_messages():
     print('Handling Messages')
     payload = request.get_data()
     print(payload)
-    for sender, message in messaging_events(payload):
-        print ("Incoming from %s: %s" % (sender, message))
-        message = parse_user_message(sender, message)
-        print('Message ready to be returned.')
-        send_message(PAT, sender, message)
-        print('Message sent.')
+    # for sender, message in messaging_events(payload):
+    #     print ("Incoming from %s: %s" % (sender, message))
+    #     message = parse_user_message(sender, message)
+    #     print('Message ready to be returned.')
+    #     send_message(PAT, sender, message)
+    #     print('Message sent.')
     return 'Ok'
 
 
