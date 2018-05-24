@@ -1,5 +1,5 @@
 from flask import Flask, request
-import json, requests, apiai, threading, time
+import json, requests, apiai, threading, time, pprint
 
 app = Flask(__name__)
 datetime_dict = {}
@@ -37,7 +37,6 @@ def handle_messages():
 
 def messaging_events(payload):
     data = json.loads(payload)
-    import pprint
     pprint.pprint(data)
     messaging_events = data["entry"][0]["messaging"]
     print('Obtaining sender, msg pair from payload.')
