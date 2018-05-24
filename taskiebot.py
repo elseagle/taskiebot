@@ -26,12 +26,12 @@ def handle_messages():
     print('Handling Messages')
     payload = request.get_data()
     print(payload)
-    # for sender, message in messaging_events(payload):
-    #     print ("Incoming from %s: %s" % (sender, message))
-    #     message = parse_user_message(sender, message)
-    #     print('Message ready to be returned.')
-    #     send_message(PAT, sender, message)
-    #     print('Message sent.')
+    for sender, message in messaging_events(payload):
+        print ("Incoming from %s: %s" % (sender, message))
+        message = parse_user_message(sender, message)
+        print('Message ready to be returned.')
+        send_message(PAT, sender, message)
+        print('Message sent.')
     return 'Ok'
 
 
@@ -71,35 +71,32 @@ def parse_user_message(sender, user_text):
         print("API AI response", response['result']['fulfillment']['speech'])
         api_response = response['result']
         pprint.pprint(response)
-        # quotes = None
-        # attractions = None
-        # print(response['result'])
         
-        try:
-            if api_response['metadata']['intentName'] == 'what_to_do':
-                print('Intent is what_to_do.')
-                if sender not in datetime_dict: datetime_dict[sender] = {}
-                if 'date' not in datetime_dict[sender] and api_response['parameters']['date'] != '':
-                    try:
-                        datetime_dict[sender]['date'] = api_response['parameters']['date']
-                        print('Date entity obtained.')
-                    except KeyError:
-                        pass
-                if 'time' not in datetime_dict[sender] and api_response['parameters']['time'] != '':
-                    try:
-                        datetime_dict[sender]['time'] = api_response['parameters']['time']
-                        print('Time entity obtained.')
-                    except KeyError:
-                        pass
-                if datetime_dict[sender]['date'] != '' and datetime_dict[sender]['time'] != '':
-                    date = datetime_dict[sender].pop('date')
-                    time = datetime_dict[sender].pop('time')
-                    datetime_dict.pop(sender)
-                    print('About to start thread')
-                    time_in_seconds, info = parse_datetime_from(date, time)
-                    myThread(sender, time_in_seconds, info).start()
-        except KeyError:
-            pass
+        # try:
+        #     if api_response['metadata']['intentName'] == 'what_to_do':
+        #         print('Intent is what_to_do.')
+        #         if sender not in datetime_dict: datetime_dict[sender] = {}
+        #         if 'date' not in datetime_dict[sender] and api_response['parameters']['date'] != '':
+        #             try:
+        #                 datetime_dict[sender]['date'] = api_response['parameters']['date']
+        #                 print('Date entity obtained.')
+        #             except KeyError:
+        #                 pass
+        #         if 'time' not in datetime_dict[sender] and api_response['parameters']['time'] != '':
+        #             try:
+        #                 datetime_dict[sender]['time'] = api_response['parameters']['time']
+        #                 print('Time entity obtained.')
+        #             except KeyError:
+        #                 pass
+        #         if datetime_dict[sender]['date'] != '' and datetime_dict[sender]['time'] != '':
+        #             date = datetime_dict[sender].pop('date')
+        #             time = datetime_dict[sender].pop('time')
+        #             datetime_dict.pop(sender)
+        #             print('About to start thread')
+        #             time_in_seconds, info = parse_datetime_from(date, time)
+        #             myThread(sender, time_in_seconds, info).start()
+        # except KeyError:
+        #     pass
         return api_response['fulfillment']['speech']
 
 
