@@ -37,6 +37,8 @@ def handle_messages():
 
 def messaging_events(payload):
     data = json.loads(payload)
+    import pprint
+    pprint.pprint(data)
     messaging_events = data["entry"][0]["messaging"]
     print('Obtaining sender, msg pair from payload.')
     print([key for key in data])
