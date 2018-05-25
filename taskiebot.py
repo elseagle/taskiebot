@@ -122,6 +122,7 @@ def parse_datetime_from(date, times):
 	t1 = time.strptime(t1, '%Y-%m-%d%H:%M:%S')
 	time_now = time.time()
 	time_set = time.mktime(t1)
+	print("Time now: {}, time then: {}".format(time_now, time_set))
 	if time_set - time_now <= 600: return (time_set - time_now - 60, 'one')
 	return (time_set - time_now - 600, 'ten')
 
