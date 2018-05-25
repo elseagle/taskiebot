@@ -117,7 +117,7 @@ class myThread(threading.Thread):
 
 
 def parse_datetime_from(date, times):
-	t1 = date[:10] + 'T' + times[11:19]
+	t1 = date[:10] + times[11:19]
 	print(t1)
 	t1 = time.strptime(t1, '%Y-%m-%d%H:%M:%S')
 	time_now = time.time()
