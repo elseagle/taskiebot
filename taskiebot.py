@@ -75,8 +75,8 @@ def parse_user_message(sender, user_text):
         pprint.pprint(response)
         
         try:
-            if api_response['metadata']['intentName'] == 'what_to_do':
-                print('Intent is what_to_do.')
+            if api_response['metadata']['intentName'] == 'task':
+                print('Intent is "task".')
                 if sender not in datetime_dict: datetime_dict[sender] = {}
                 if 'date' not in datetime_dict[sender] and api_response['parameters']['date'] != '':
                     try:
