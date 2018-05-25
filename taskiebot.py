@@ -61,6 +61,8 @@ def parse_user_message(sender, user_text):
     ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
     r = ai.text_request()
     r.query = user_text.decode('utf-8')
+    r.session_id = sender[-11:]
+    print("Session ID: {}".format(sender[-11:]))
     # r.getresponse()
 
     response = json.loads(r.getresponse().read().decode('utf-8'))
