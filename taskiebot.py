@@ -6,7 +6,7 @@ datetime_dict = {}
 
 PAT = 'EAAIEBfGH3bIBAN2xaZBy7dW7kAxvfCQSz7K6o3ejZAJDP8QCUQRTZCkKl1iTm74qAFxVP94FNb1O4YCaPPGIW827tw5lZBJJIn7MCv2KQOUvUlZAgXI3E6CeZBFsESz3bfS8Foq4ixha7myyeFbLtEkSbe8wSNGFJQtBpqIfWtFgZDZD'
 VERIFICATION_TOKEN = "token_key"
-CLIENT_ACCESS_TOKEN = "c9299dd0c1ef4173b3af4a02a6473311"
+CLIENT_ACCESS_TOKEN = "176fc731ea3e46ff9f5154981eb5eeed"
 
 @app.route('/webhook', methods=['GET'])
 def handle_verification():
