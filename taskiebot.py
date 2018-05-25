@@ -118,7 +118,8 @@ class myThread(threading.Thread):
 
 def parse_datetime_from(date, times):
 	t1 = date[:10] + 'T' + times[11:19]
-	t1 = time.strptime(t1, '%Y-%m-%dT%H:%M:%S')
+	print(t1)
+	t1 = time.strptime(t1, '%Y-%m-%d%H:%M:%S')
 	time_now = time.time()
 	time_set = time.mktime(t1)
 	if time_set - time_now <= 600: return (time_set - time_now - 60, 'one')
