@@ -92,10 +92,10 @@ def parse_user_message(sender, user_text):
                         pass
                 if datetime_dict[sender]['date'] != '' and datetime_dict[sender]['time'] != '':
                     date = datetime_dict[sender].pop('date')
-                    time = datetime_dict[sender].pop('time')
+                    times = datetime_dict[sender].pop('time')
                     datetime_dict.pop(sender)
                     print('About to start thread')
-                    time_in_seconds, info = parse_datetime_from(date, time)
+                    time_in_seconds, info = parse_datetime_from(date, times)
                     myThread(sender, time_in_seconds, info).start()
         except KeyError:
             pass
@@ -116,8 +116,8 @@ class myThread(threading.Thread):
         print("Exiting thread for " + self.sender)
 
 
-def parse_datetime_from(date, time):
-	t1 = date[:10] + 'T' + time[11:19]
+def parse_datetime_from(date, times):
+	t1 = date[:10] + 'T' + times[11:19]
 	t1 = time.strptime(t1, '%Y-%m-%dT%H:%M:%S')
 	time_now = time.time()
 	time_set = time.mktime(t1)
