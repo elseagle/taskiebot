@@ -103,17 +103,25 @@ def parse_user_message(sender, user_text):
 
 
 class myThread(threading.Thread):
-    def __init__(self, sender, date_and_time, info):
+    def __init__(self, sender, date_and_time, info, kind='alerts'):
         threading.Thread.__init__(self)
         self.sender = sender
         self.date_and_time = date_and_time
         self.info = info
+        self.kind = kind
     def run(self):
+        if self.kind != 'alerts':
+            self.pingServer()
+            return
         print("Starting thread for " + self.sender)
         time.sleep(self.date_and_time)
         task_alert_message = 'Your task is starting in {} minute(s). Get ready yo!'.format(self.info)
         send_message(PAT, self.sender, task_alert_message)
         print("Exiting thread for " + self.sender)
+    def pingServer(self):
+        time.sleep(28*60)
+        requests.post('https://taskiebot.herokuapp.com/webhook')
+        self.pingServer()
 
 
 def parse_datetime_from(date, times):
@@ -139,5 +147,17 @@ def send_message(token, recipient, text):
     if req.status_code != requests.codes['ok']:
         print (req.text)
 
+# class 
+#     def permission_response():
+#         permissions =  permission_response.permisssions()
+#         isGranted = permission_response.isGranted()
+        
+#         if isGranted:
+#             print("Permision is granted")
+#         else:
+#             print("Error Occurred")
+
+
 if __name__ == '__main__':
     app.run()
+    myThread(None,None,None,kind='onStart').start()
