@@ -73,7 +73,7 @@ def parse_user_message(sender, user_text):
         print("API AI response", response['result']['fulfillment']['speech'])
         api_response = response['result']
         pprint.pprint(response)
-        
+
         try:
             if api_response['metadata']['intentName'] == 'task':
                 print('Intent is "task".')
@@ -103,12 +103,15 @@ def parse_user_message(sender, user_text):
 
 
 class myThread(threading.Thread):
+    '''Docstring for myThread class'''
+
     def __init__(self, sender, date_and_time, info, kind='alerts'):
         threading.Thread.__init__(self)
         self.sender = sender
         self.date_and_time = date_and_time
         self.info = info
         self.kind = kind
+
     def run(self):
         if self.kind != 'alerts':
             self.pingServer()
@@ -117,7 +120,11 @@ class myThread(threading.Thread):
         time.sleep(self.date_and_time)
         task_alert_message = 'Your task is starting in {} minute(s). Get ready yo!'.format(self.info)
         send_message(PAT, self.sender, task_alert_message)
+        time.sleep(598 if self.info == 'ten' else 58)
+        task_alert_message = 'Heyo! You scheduled a task, and it starts now.'
+        send_message(PAT, self.sender, task_alert_message)
         print("Exiting thread for " + self.sender)
+
     def pingServer(self):
         time.sleep(28*60)
         requests.post('https://taskiebot.herokuapp.com/webhook')
@@ -146,6 +153,7 @@ def send_message(token, recipient, text):
     headers={'Content-type': 'application/json'})
     if req.status_code != requests.codes['ok']:
         print (req.text)
+
 
 # class 
 #     def permission_response():
