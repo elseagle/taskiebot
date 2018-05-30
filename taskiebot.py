@@ -128,6 +128,7 @@ class myThread(threading.Thread):
     def pingServer(self):
         time.sleep(28*60)
         requests.post('https://taskiebot.herokuapp.com/webhook')
+        print('Server pinged.')
         self.pingServer()
 
 
