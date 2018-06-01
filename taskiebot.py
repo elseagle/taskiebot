@@ -127,14 +127,14 @@ class myThread(threading.Thread):
 
     def pingServer(self):
         requests.post('https://taskiebot.herokuapp.com/webhook')
-        time.sleep(28*60)
         print('Server pinged.')
+        time.sleep(28*60)
         self.pingServer()
 
 
 def parse_datetime_from(date, times):
 	t1 = str(date) + str(times)
-	print(t1)
+	print(t1)S
 	t1 = time.strptime(t1, '%Y-%m-%d%H:%M:%S')
 	time_now = time.time()
 	time_set = time.mktime(t1)
