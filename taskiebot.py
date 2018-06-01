@@ -126,8 +126,8 @@ class myThread(threading.Thread):
         print("Exiting thread for " + self.sender)
 
     def pingServer(self):
-        time.sleep(28*60)
         requests.post('https://taskiebot.herokuapp.com/webhook')
+        time.sleep(28*60)
         print('Server pinged.')
         self.pingServer()
 
